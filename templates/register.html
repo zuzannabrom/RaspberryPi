@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejestracja</title>
+    <script>
+        // Funkcja do wyświetlania popupu
+        function showPopup(message) {
+            alert(message);
+        }
+    </script>
+</head>
+<body>
+    <h1>Rejestracja</h1>
+    <form method="POST">
+        <label for="username">Nazwa użytkownika:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit">Zarejestruj się</button>
+    </form>
+    <p>Masz już konto? <a href="{{ url_for('login') }}">Zaloguj się</a></p>
+</body>
+</html>

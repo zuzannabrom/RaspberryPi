@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nauczyciel Wokalny</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff0f6;
+      color: #333;
+    }
+
+    /* === Pasek nawigacyjny === */
+    header {
+      background-color: #f6b1d2;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    nav.navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+    }
+
+    .nav-left, .nav-center, .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-left a,
+    .nav-center a,
+    .nav-right a {
+      font-size: 18px;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 0 12px;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .nav-center ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-center li {
+      margin: 0 10px;
+    }
+
+    .nav-center a:hover,
+    .nav-left a:hover,
+    .nav-right a:hover {
+      text-decoration: underline;
+    }
+
+    .dropbtn {
+      background-color: #f092b0;
+      color: white;
+      border: none;
+      font-size: 16px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #ffe1f0;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      border-radius: 8px;
+      min-width: 200px;
+      margin-top: 5px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown:hover .dropdown-content,
+    .dropdown-content:hover {
+    display: block;
+    }
+
+
+    main.content {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    a.feature-box-link {
+      text-decoration: none;
+    }
+
+    .feature-box {
+      background-color: #fcd6ea;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      display: block;
+      height: 100%;
+      text-align: center;
+    }
+
+    .feature-box:active {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .feature-box h2 {
+      color: #a2326d;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .feature-box p {
+      font-size: 16px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pasek nawigacyjny -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="{{ url_for('home') }}">Strona główna</a>
+      </div>
+      <div class="nav-center">
+        <ul>
+          <li><a href="{{ url_for('nauczyciel_wokalny') }}">Nauczyciel wokalny</a></li>
+          <li><a href="{{ url_for('o_projekcie') }}">O projekcie</a></li>
+          <li><a href="{{ url_for('omnie') }}">O mnie</a></li>
+          <li><a href="{{ url_for('kontakt') }}">Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        {% if username %}
+          <span style="color:white; font-weight:500; text-shadow:1px 1px 2px #000;">{{ username }}</span>
+          <a href="{{ url_for('logout') }}">Wyloguj</a>
+          <div class="dropdown">
+            <button class="dropbtn">Moje konto</button>
+            <div class="dropdown-content">
+              <a href="#">Moje dane</a>
+              <a href="#">Moje utwory</a>
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ url_for('login') }}">Zaloguj się</a>
+          <a href="{{ url_for('register') }}">Zarejestruj się</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+
+  <!-- Główna zawartość -->
+  <main class="content">
+    <h1>Wirtualny Nauczyciel Wokalny</h1>
+    <div class="grid-container">
+      <a href="{{ url_for('skala') }}" class="feature-box-link">
+        <div class="feature-box">
+          <h2>🎵 Sprawdź swoją skalę głosu</h2>
+          <p>Dowiedz się, jakie są Twoje najniższe i najwyższe możliwe dźwięki oraz do jakiego typu głosu należysz.</p>
+        </div>
+      </a>
+      <a href="#" class="feature-box-link">
+        <div class="feature-box">
+          <h2>🎯 Sprawdź czystość dźwięku</h2>
+          <p>Wybierz nutę, zaśpiewaj ją i sprawdź, czy trafiasz w dźwięk! Naucz się precyzji w intonacji.</p>
+        </div>
+      </a>
+      <a href="#" class="feature-box-link">
+        <div class="feature-box">
+          <h2>🎚 Equalizer audio</h2>
+          <p>Wgraj swoje nagranie i eksperymentuj z tonami niskimi, średnimi i wysokimi.</p>
+        </div>
+      </a>
+      <a href="#" class="feature-box-link">
+        <div class="feature-box">
+          <h2>📈 Ćwiczenia intonacyjne</h2>
+          <p>Śpiewaj z wykresem tonu w czasie rzeczywistym i poprawiaj stabilność swojego głosu.</p>
+        </div>
+      </a>
+    </div>
+  </main>
+
+</body>
+</html>

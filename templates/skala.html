@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Test skali głosu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
+  <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff0f6;
+      color: #333;
+    }
+
+    header {
+      background-color: #f6b1d2;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    nav.navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+    }
+
+    .nav-left, .nav-center, .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-left a,
+    .nav-center a,
+    .nav-right a {
+      font-size: 18px;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 0 12px;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .nav-center ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-center li {
+      margin: 0 10px;
+    }
+
+    .nav-center a:hover,
+    .nav-left a:hover,
+    .nav-right a:hover {
+      text-decoration: underline;
+    }
+
+    main.content {
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #a2326d;
+    }
+
+    #note-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .note-button {
+      background-color: #fcd6ea;
+      border: none;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .note-button:hover {
+      background-color: #f0a9cb;
+      transform: scale(1.05);
+    }
+
+    span {
+      font-weight: bold;
+      color: #a2326d;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pasek nawigacyjny -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="{{ url_for('home') }}">Strona główna</a>
+      </div>
+      <div class="nav-center">
+        <ul>
+          <li><a href="{{ url_for('nauczyciel_wokalny') }}">Nauczyciel wokalny</a></li>
+          <li><a href="{{ url_for('o_projekcie') }}">O projekcie</a></li>
+          <li><a href="{{ url_for('omnie') }}">O mnie</a></li>
+          <li><a href="{{ url_for('kontakt') }}">Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        {% if username %}
+          <span style="color:white; font-weight:500; text-shadow:1px 1px 2px #000;">{{ username }}</span>
+          <a href="{{ url_for('logout') }}">Wyloguj</a>
+        {% else %}
+          <a href="{{ url_for('login') }}">Zaloguj się</a>
+          <a href="{{ url_for('register') }}">Zarejestruj się</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+
+  <!-- Główna zawartość -->
+  <main class="content">
+    <h1>🎤 Sprawdź swoją skalę głosu</h1>
+    <p>Kliknij nutę, zaśpiewaj ją i zobacz czy trafiasz!</p>
+
+    <button id="start-btn" class="note-button" style="margin-bottom: 20px;">
+    🎙️ Rozpocznij test skali głosu
+    </button>
+
+    <div id="note-buttons"></div>
+
+    <p><strong>Docelowa nuta:</strong> <span id="target-note">–</span></p>
+    <p><strong>Wykryta nuta:</strong> <span id="detected-note">–</span></p>
+    <p><strong>Ocena:</strong> <span id="result">–</span></p>
+  </main>
+
+
+
+
+  <!-- skrypt JS -->
+ <script src="{{ url_for('static', filename='scale.js') }}"></script>
+</body>
+</html>
